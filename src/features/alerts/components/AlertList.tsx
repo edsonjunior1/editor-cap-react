@@ -13,7 +13,7 @@ function severityColor(severity: Alert["severity"]) {
     case "high":
       return "bg-red-100 text-red-800";
   }
-};
+}
 
 export function AlertList() {
   const alerts = useAppSelector((state) => state.alerts.items);
@@ -27,11 +27,11 @@ export function AlertList() {
         </p>
       </Card>
     );
-  };
+  }
 
   return (
     <div className="space-y-3">
-      {alerts.map((alert:Alert) => (
+      {alerts.map((alert: Alert) => (
         <Card key={alert.id} className="flex items-start justify-between gap-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
@@ -42,6 +42,11 @@ export function AlertList() {
               >
                 {alert.severity.toUpperCase()}
               </span>
+              {alert.areas?.length ? (
+                <span className="text-[11px] text-gray-500">
+                  {alert.areas.length} area(s)
+                </span>
+              ) : null}
               <span className="text-xs text-gray-500">
                 {new Date(alert.createdAt).toLocaleString()}
               </span>

@@ -16,7 +16,14 @@ function loadInitialAlerts(): Alert[] {
     if (!raw) return [];
     const parsed = JSON.parse(raw) as Alert[];
     if (!Array.isArray(parsed)) return [];
-    return parsed;
+    return parsed.map((a) => ({
+      id: a.id ?? nanoid(),
+      title: a.title ?? "",
+      description: a.description ?? "",
+      severity: a.severity ?? "low",
+      createdAt: a.createdAt ?? new Date().toISOString(),
+      areas: a.areas ?? [],
+    }));
   } catch {
     return [];
   }
@@ -30,6 +37,7 @@ interface CreateAlertPayload {
   title: string;
   description: string;
   severity: Alert["severity"];
+  areas: Alert["areas"];
 };
 
 const alertsSlice = createSlice({
