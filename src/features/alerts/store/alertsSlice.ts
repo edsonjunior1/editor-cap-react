@@ -7,8 +7,23 @@ interface AlertsState {
   items: Alert[];
 };
 
+const STORAGE_KEY = "alerts";
+
+function loadInitialAlerts(): Alert[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw) as Alert[];
+    if (!Array.isArray(parsed)) return [];
+    return parsed;
+  } catch {
+    return [];
+  }
+}
+
 const initialState: AlertsState = {
-  items: [],
+  items: loadInitialAlerts(),
 };
 
 interface CreateAlertPayload {
@@ -38,3 +53,4 @@ const alertsSlice = createSlice({
 
 export const { createAlert, deleteAlert } = alertsSlice.actions;
 export const alertsReducer = alertsSlice.reducer;
+export { STORAGE_KEY };
