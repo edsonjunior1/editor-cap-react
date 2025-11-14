@@ -1,73 +1,68 @@
-# React + TypeScript + Vite
+# Editor (React 19 + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Web app simples para criação e gerenciamento de alertas, inspirado em cenários de alerta meteorológico (CAP-like).  
+Projeto focado em **arquitetura frontend moderna** usando **React 19**, **TypeScript**, **Vite**, **Redux Toolkit** e **TailwindCSS**.
 
-Currently, two official plugins are available:
+## 🎯 Objetivo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Servir como projeto de portfólio para demonstrar:
 
-## React Compiler
+- Organização de pastas por **features/domínios**
+- Uso de **Redux Toolkit** para gerenciamento de estado
+- Componentização de UI (botões, cards, layout)
+- Preparação para deploy em plataformas como **Vercel** ou **Netlify**
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🧱 Stack
 
-## Expanding the ESLint configuration
+- [React 19](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Vite](https://vitejs.dev/)
+- [Redux Toolkit](https://redux-toolkit.js.org/)
+- [React Redux](https://react-redux.js.org/)
+- [TailwindCSS](https://tailwindcss.com/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 📁 Estrutura de pastas (resumo)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+```txt
+src/
+  app/
+    App.tsx          # Componente raiz da aplicação
+    store.ts         # Configuração da store Redux
+  features/
+    alerts/
+      components/    # Componentes específicos do domínio de alertas
+      store/         # Slice Redux do domínio de alertas
+      types/         # Tipagens do domínio de alertas
+  shared/
+    ui/              # Componentes de UI reutilizáveis (Button, Card, etc.)
+    utils/           # Funções utilitárias genéricas
+  main.tsx           # Ponto de entrada da aplicação
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Rodando localmente
+# instalar dependências
+npm install
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# modo desenvolvimento
+npm run dev
+
+# build para produção
+npm run build
+
+# preview do build
+npm run preview
 ```
+A aplicação roda por padrão em:
+http://localhost:5173
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## O projeto é compatível com deploy estático em:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Vercel
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Netlify
+
+Ou qualquer serviço que aceite build estático via npm run build.
+
+Basta configurar o comando de build:
+```npm run build
+E o diretório de saída:
+dist/
